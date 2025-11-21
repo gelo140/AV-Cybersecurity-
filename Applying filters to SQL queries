@@ -1,0 +1,120 @@
+Apply Filters to SQL Queries
+Project Description
+
+In this project, I used SQL filters to investigate suspicious login attempts and retrieve employee data across different departments. I applied filtering techniques using WHERE, AND, OR, NOT, and LIKE operators to analyze login activity, identify patterns, and extract security-related employee information. This exercise demonstrates practical SQL skills used in cybersecurity investigations.
+
+Retrieve After-Hours Failed Login Attempts
+
+Goal: Find failed login attempts (success = 0) that occurred after 18:00.
+
+Query:
+SELECT *
+FROM log_in_attempts
+WHERE login_time > '18:00'
+  AND success = 0;
+
+Explanation:
+
+login_time > '18:00' filters for activity after business hours.
+
+success = 0 returns only failed login attempts.
+
+Using AND ensures both conditions must be true.
+
+Retrieve Login Attempts on Specific Dates
+
+Goal: Retrieve login attempts from 2022-05-09 OR 2022-05-08.
+
+Query:
+SELECT *
+FROM log_in_attempts
+WHERE login_date = '2022-05-09'
+   OR login_date = '2022-05-08';
+
+Explanation:
+
+The OR operator returns records matching either date.
+
+Useful for investigating a suspicious event that may span multiple days.
+
+Retrieve Login Attempts Outside of Mexico
+
+Goal: Get all login attempts NOT originating from Mexico.
+Country values may be MEX or MEXICO, so pattern matching is required.
+
+Query:
+SELECT *
+FROM log_in_attempts
+WHERE country NOT LIKE 'MEX%';
+
+Explanation:
+
+The LIKE 'MEX%' pattern matches both “MEX” and “MEXICO.”
+
+NOT LIKE excludes all country values beginning with “MEX.”
+
+% acts as a wildcard for any characters that follow.
+
+Retrieve Employees in Marketing (East Building)
+
+Goal: Retrieve employees in the Marketing department located anywhere in the East building.
+
+Query:
+SELECT *
+FROM employees
+WHERE department = 'Marketing'
+  AND office LIKE 'East%';
+
+Explanation:
+
+department = 'Marketing' targets Marketing personnel.
+
+office LIKE 'East%' retrieves any East-building office (e.g., East-170, East-320).
+
+AND ensures both conditions must be met.
+
+Retrieve Employees in Finance or Sales
+
+Goal: Retrieve all employees in the Finance OR Sales departments.
+
+Query:
+SELECT *
+FROM employees
+WHERE department = 'Finance'
+   OR department = 'Sales';
+
+Explanation:
+
+The OR operator returns employees from either department.
+
+Useful when applying updates across multiple departments.
+
+Retrieve All Employees NOT in IT
+
+Goal: Get all employees except those in the Information Technology department.
+
+Values in the table may contain phrases like "Information Technology", so the full string must be filtered.
+
+Query:
+SELECT *
+FROM employees
+WHERE department <> 'Information Technology';
+
+
+Or, using NOT:
+
+SELECT *
+FROM employees
+WHERE NOT department = 'Information Technology';
+
+Explanation:
+
+<> means "not equal to" in SQL.
+
+NOT is an alternative method to exclude a value.
+
+Retrieves all employees who still need the security update.
+
+Summary
+
+In this project, I applied SQL filtering techniques to analyze login activity and retrieve employee information relevant to security operations. I used WHERE, AND, OR, NOT, and LIKE to filter by dates, times, locations, departments, and country codes. These queries demonstrate how SQL can be used to investigate incidents, identify suspicious patterns, and support security decision-making.
