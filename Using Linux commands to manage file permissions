@@ -1,0 +1,121 @@
+File Permissions in Linux
+Project Description
+
+In this project, I used Linux commands to view and manage file and directory permissions within the projects directory. I checked detailed file information using ls -la, interpreted the 10-character permissions string, updated file permissions according to organizational policy, modified permissions on a hidden file, and secured a directory so only the owner could access it. This demonstrates practical authorization and access-control skills in a Linux environment.
+
+Check File and Directory Details
+
+To view all files—including hidden files—with detailed permissions, I used:
+
+ls -la
+
+
+This command displays:
+
+File type
+
+Permission string
+
+Number of links
+
+Owner
+
+Group
+
+Size
+
+Date
+
+File or directory name
+
+Example output (based on the Current File Permissions document):
+
+drwxr-xr-x  3 researcher2 researcher2 4096 projects
+-rw-rw-rw-  1 researcher2 researcher2 1024 notes.txt
+-rwxr-xr--  1 researcher2 researcher2 2048 script.sh
+-rw-rw----  1 researcher2 researcher2  512 .project_x.txt
+drwxrwxr-x  2 researcher2 researcher2 4096 drafts
+
+Describe the Permissions String
+
+Example permission string:
+
+-rw-rw-rw-
+
+
+This 10-character string represents:
+
+Character 1 — -
+Indicates a regular file.
+
+Characters 2–4 — rw-
+Owner can read and write.
+
+Characters 5–7 — rw-
+Group can read and write.
+
+Characters 8–10 — rw-
+Others can read and write.
+
+This means everyone (owner, group, and others) has read and write access.
+
+Change File Permissions
+
+The organization does not allow "others" to have write access to any files.
+
+From the output, notes.txt had:
+
+-rw-rw-rw-
+
+
+The final three characters (rw-) showed that others had write access.
+
+Command used:
+chmod o-w notes.txt
+
+Result:
+-rw-rw-r--
+
+
+Explanation:
+This command removes write permission from the "others" category while keeping owner and group permissions unchanged.
+
+Change File Permissions on a Hidden File
+
+The .project_x.txt file should:
+
+Have no write permissions for anyone
+
+Be readable by the user
+
+Be readable by the group
+
+Not be accessible by others
+
+Command used:
+chmod 440 .project_x.txt
+
+Result:
+-r--r-----
+
+
+Explanation:
+440 gives read-only access to the user and group, while denying all permissions to others.
+
+Change Directory Permissions
+
+Only researcher2 should be able to access the drafts/ directory.
+
+Command used:
+chmod 700 drafts/
+
+Result:
+drwx------
+
+
+Explanation:
+This gives the owner full permissions (read, write, execute) and removes all permissions for group and others. Only the owner may enter or modify the directory.
+
+Summary
+
+In this project, I demonstrated key Linux authorization skills, including checking file and directory permissions with ls -la, interpreting permission strings, and modifying access rights using chmod. I restricted write access for others, secured a hidden file used for archival purposes, and locked down a directory to allow only the owner to access it. These steps are essential for maintaining security and enforcing least-privilege principles in Linux environments.
