@@ -1,0 +1,67 @@
+Algorithm for File Updates in Python
+
+(Course 7 – Module 4 Portfolio Activity)
+
+Project Description
+
+This project demonstrates how Python can be used to automate security-related tasks involving file handling. In this scenario, a healthcare company maintains an allow-list of IP addresses permitted to access restricted systems. A separate remove-list identifies IP addresses that should no longer have access.
+Using Python, I created an algorithm that opens the allow-list file, parses its contents, removes unauthorized IP addresses, and updates the file with a revised list. This ensures that access control is consistently enforced and reduces manual security errors.
+
+Open the File That Contains the Allow List
+
+To read the allow list, I assigned the file name "allow_list.txt" to a variable and used a with statement to safely open the file.
+The with keyword automatically handles opening and closing the file.
+
+import_file = "allow_list.txt"
+
+with open(import_file, "r") as file:
+    ip_addresses = file.read()
+
+Read the File Contents
+
+I used the .read() method to convert the file’s contents into a single string. This allows me to manipulate the entire list before transforming it into a Python list.
+
+ip_addresses = file.read()
+
+Convert the String Into a List
+
+To modify individual IP addresses, the string must be split into separate elements. I used .split() which separates text at whitespace by default and returns a list.
+
+ip_addresses = ip_addresses.split()
+
+Iterate Through the Remove List
+
+The algorithm loops through the remove_list to check which IPs need to be removed.
+I set up a for loop using element as the loop variable.
+
+remove_list = ["192.168.1.5", "172.16.0.3"]
+
+for element in remove_list:
+
+Remove IP Addresses That Are on the Remove List
+
+Inside the loop, I added a conditional to check whether the current element exists in the ip_addresses list.
+If it does, the .remove() method deletes it.
+
+for element in remove_list:
+    if element in ip_addresses:
+        ip_addresses.remove(element)
+
+
+The .remove() method works cleanly here because there are no duplicate IPs in the allow-list file, ensuring each removal happens only once.
+
+Update the File With the Revised List of IP Addresses
+
+After removing unauthorized IPs, I converted the list back into a string using "\n".join(), ensuring each IP appears on its own line.
+Then, I opened the file again in write mode to overwrite it with the revised list.
+
+updated_ip_addresses = "\n".join(ip_addresses)
+
+with open(import_file, "w") as file:
+    file.write(updated_ip_addresses)
+
+Summary
+
+This Python algorithm automates an essential security task: maintaining an accurate allow-list of IP addresses.
+First, the script opens and reads the allow-list file, then converts its contents into a manageable Python list. Next, it loops through a remove-list to delete unauthorized IPs, ensuring the access list stays compliant with internal policies. Finally, the algorithm writes the updated list back to the file in a clean, structured format.
+This approach reduces human error, supports consistent access control, and demonstrates how Python can streamline routine security operations.
